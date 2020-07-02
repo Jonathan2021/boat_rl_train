@@ -10,13 +10,13 @@ Created on Tue Jun  9 11:29:11 2020
 import gym
 import gym_ShipNavigation
 
-from stable_baselines.ppo1 import PPO1
+from stable_baselines.ppo2 import PPO2
 from stable_baselines.common.evaluation import evaluate_policy
 
-env = gym.make("ShipNav-v4")
+env = gym.make("ShipNav-v1",n_rocks=30,n_rocks_obs = 1)
 
 # Load the trained agent
-model = PPO1.load("ppo1_v4_3/final_model.zip")
+model = PPO2.load("../zoo/ppo2_ShipNav_retrain/final_model.zip")
 
 # Evaluate the agent
 #mean_reward, std_reward = evaluate_policy(model, model.get_env(), n_eval_episodes=10)
