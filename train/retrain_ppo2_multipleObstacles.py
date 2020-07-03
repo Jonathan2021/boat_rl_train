@@ -10,14 +10,15 @@ Created on Thu Jul  2 15:10:17 2020
 
 import os
 import gym_ShipNavigation
-
+import gym
 from stable_baselines.common.policies import MlpPolicy
 from stable_baselines.common import make_vec_env
 from stable_baselines import PPO2
 
 NUM_TIMESTEPS = int(1e9)
 env_kwargs = {'n_rocks':30,'n_rocks_obs':1}
-env = make_vec_env('ShipNav-v1', env_kwargs=env_kwargs, n_envs=2)
+
+env = make_vec_env(lambda **kwargs: gym.make('ShipNav-v1',**kwargs), env_kwargs=env_kwargs, n_envs=1)
 
 LOGDIR = "ppo2_ShipNav_retrain_multipleObstacles" # moved to zoo afterwards.
 LOADDIR= "../zoo/ppo2_ShipNav_retrain" # moved to zoo afterwards.
