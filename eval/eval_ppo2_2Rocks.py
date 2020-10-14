@@ -13,7 +13,7 @@ import gym_ShipNavigation
 from stable_baselines.ppo2 import PPO2
 from stable_baselines.common.evaluation import evaluate_policy
 
-env = gym.make("ShipNav-v1",n_rocks=30,n_rocks_obs = 1)
+env = gym.make("ShipNav-v1",n_rocks=30,n_rocks_obs = 1,obs_radius = 300)
 
 # Load the trained agent
 model = PPO2.load("../zoo/ppo2_ShipNav_retrain/final_model.zip")
@@ -33,7 +33,7 @@ for i in range(10):
     reward = 0
     while not (done or j >= 500):
         j+=1
-        action, _states = model.predict(obs)
+        action, _states = model.predict(obs[:6])
         obs, rewards, done, info = env.step(action)
         reward+=rewards
         env.render()

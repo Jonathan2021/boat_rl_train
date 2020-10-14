@@ -9,7 +9,7 @@ try:
     myEnv.reset()
 except NameError:
     # myEnv = gym.make('gym_ShipNavigation:ShipNav-v0',n_rocks=0)
-    myEnv = gym.make('gym_ShipNavigation:ShipNav-v1',n_rocks=10)
+    myEnv = gym.make('gym_ShipNavigation:ShipNav-v1',n_rocks=10,n_rocks_obs=1)
     
     myEnv.reset()
 
@@ -23,7 +23,7 @@ ACTIONS = myEnv.action_space.n
 SKIP_CONTROL = 0    # Use previous control decision SKIP_CONTROL times, that's how you
                     # can test what skip is still usable.
 
-human_agent_action = 1
+human_agent_action = 2
 human_wants_restart = False
 human_sets_pause = False
 
@@ -74,7 +74,7 @@ def rollout(myEnv):
         if human_wants_restart: break
         while human_sets_pause:
             myEnv.render()
-            time.sleep(0.1)
+            time.sleep(0.01)
     print("timesteps %i reward %0.2f" % (total_timesteps, total_reward))
 
 print("ACTIONS={}".format(ACTIONS))
