@@ -14,18 +14,25 @@ import gym_ShipNavigation
 from stable_baselines.common.policies import MlpPolicy
 from stable_baselines.common import make_vec_env
 from stable_baselines import PPO2
+from stable_baselines.common.callbacks import CheckpointCallback
+
+
 
 NUM_TIMESTEPS = 100000000
 
-env = make_vec_env('ShipNav-v4', n_envs=1)
+env = make_vec_env('ShipNav-v0', n_envs=1)
 
-LOGDIR = "ppo2_ShipNav" # moved to zoo afterwards.
+LOGDIR = "ppo2_ShipNav_" # moved to zoo afterwards.
 
 # take mujoco hyperparams (but doubled timesteps_per_actorbatch to cover more steps.)
-model = PPO2(MlpPolicy, env, verbose=2,tensorboard_log=LOGDIR)
+model = PPO2(MlpPolicy, env, verbose=1,tensorboard_log=LOGDIR)
+
+# Save a checkpoint every 1000 steps
+checkpoint_callback = CheckpointCallback(save_freq=100000, save_path=LOGDIR,
+                                         name_prefix='rl_model')
 
 try:
-    model.learn(total_timesteps=NUM_TIMESTEPS)
+    model.learn(total_timesteps=NUM_TIMESTEPS,callback=checkpoint_callback)
 except KeyboardInterrupt:
     model.save(os.path.join(LOGDIR, "partial_model"))
 
