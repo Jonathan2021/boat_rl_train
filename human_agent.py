@@ -9,7 +9,7 @@ try:
     myEnv.reset()
 except NameError:
     # myEnv = gym.make('gym_ShipNavigation:ShipNav-v0',n_rocks=0)
-    myEnv = gym.make('gym_ShipNavigation:ShipNav-v1',n_rocks=10,n_rocks_obs=1)
+    myEnv = gym.make('gym_ShipNavigation:ShipNav-v1',n_rocks=10,n_rocks_obs=1,control_throttle=True)
     
     myEnv.reset()
 
@@ -17,13 +17,20 @@ except NameError:
 PRINT_DEBUG_MSG = True
 
 #%%
-if not hasattr(myEnv.action_space, 'n'):
-    raise Exception('Keyboard agent only supports discrete action spaces')
-ACTIONS = myEnv.action_space.n
+
+if type(myEnv.action_space) == gym.spaces.discrete.Discrete:
+    ACTIONS = myEnv.action_space.n
+    human_agent_action = 2
+elif type(myEnv.action_space) == gym.spaces.multi_discrete.MultiDiscrete:
+    ACTIONS = myEnv.action_space.nvec
+    human_agent_action = [2,2]
+else:
+    raise Exception('Keyboard agent only supports discrete or multi-discrete action spaces')
+
 SKIP_CONTROL = 0    # Use previous control decision SKIP_CONTROL times, that's how you
                     # can test what skip is still usable.
 
-human_agent_action = 2
+
 human_wants_restart = False
 human_sets_pause = False
 
@@ -31,17 +38,32 @@ def key_press(key, mod):
     global human_agent_action, human_wants_restart, human_sets_pause
     if key==0xff0d: human_wants_restart = True
     if key==32: human_sets_pause = not human_sets_pause
-    a = int( key - ord('0') )
-    if a < 0 or a >= ACTIONS: return
-    human_agent_action = a
+    action0 = 2
+    action1 = 2
+    if key == 65361:
+        action0 = 1
+    elif key == 65363:
+        action0 = 0
+    elif key == 65362:
+        action1 = 0
+    elif key == 65364:
+        action1 = 1
+    if type(human_agent_action) == int:
+        human_agent_action = action0
+    else:
+        human_agent_action[0] = action0
+        human_agent_action[1] = action1
 
 def key_release(key, mod):
     global human_agent_action
-    a = int( key - ord('0') )
-    if a < 0 or a >= ACTIONS: return
-    if human_agent_action == a:
-        human_agent_action = 2
-
+    if key in [65361, 65363]:
+        if type(human_agent_action) == int:
+            human_agent_action = 2
+        else:
+            human_agent_action[0] = 2
+    elif (key in [65362, 65364]) and type(human_agent_action) is not int:
+        human_agent_action[0] = 2
+        
 myEnv.render()
 myEnv.unwrapped.viewer.window.on_key_press = key_press
 myEnv.unwrapped.viewer.window.on_key_release = key_release
