@@ -1,17 +1,17 @@
 #%% imports
 import gym.spaces
 import time
-import gym_ShipNavigation
+import shipNavEnv
 import math
 
 #%% reset env
-try:
-    myEnv.reset()
-except NameError:
-    # myEnv = gym.make('gym_ShipNavigation:ShipNav-v0',n_rocks=0)
-    myEnv = gym.make('gym_ShipNavigation:ShipNav-v1',n_rocks=10,n_rocks_obs=1,control_throttle=True)
+#try:
+#    myEnv.reset()
+#except NameError:
+myEnv = gym.make('shipNavEnv:ShipNav-v0',n_rocks=5, n_rocks_obs=0)
+    #myEnv = gym.make('shipNavEnv:ShipNav-v1',n_rocks=60,n_rocks_obs=1,control_throttle=True)
     
-    myEnv.reset()
+myEnv.reset()
 
 #%% other
 PRINT_DEBUG_MSG = True
@@ -64,14 +64,14 @@ def key_release(key, mod):
     elif (key in [65362, 65364]) and type(human_agent_action) is not int:
         human_agent_action[0] = 2
         
-myEnv.render()
-myEnv.unwrapped.viewer.window.on_key_press = key_press
-myEnv.unwrapped.viewer.window.on_key_release = key_release
 
 def rollout(myEnv):
     global human_agent_action, human_wants_restart, human_sets_pause
     human_wants_restart = False
     obser = myEnv.reset()
+    myEnv.render()
+    myEnv.unwrapped.world.viewer.window.on_key_press = key_press
+    myEnv.unwrapped.world.viewer.window.on_key_release = key_release
     skip = 0
     total_reward = 0
     total_timesteps = 0
@@ -90,7 +90,7 @@ def rollout(myEnv):
         total_reward += r
         window_still_open = myEnv.render()
         if window_still_open==False: 
-            myEnv.viewer.close()
+            myEnv.world.viewer.close()
             return False
         if done: break
         if human_wants_restart: break

@@ -234,3 +234,71 @@ ReacherBulletEnv-v0:
   learning_rate: lin_0.0008
   use_sde: True
   policy_kwargs: "dict(log_std_init=-2, ortho_init=False)"
+
+
+# ShipNav-v0:
+#   n_envs: 8
+#   n_timesteps: !!float 1e6
+#   policy: 'MlpPolicy'
+#   gamma: 0.999
+#   normalize_advantage: False
+#   max_grad_norm: 0.7
+#   use_rms_prop: False
+#   gae_lambda: 0.98
+#   n_steps: 256
+#   #lr_schedule: constant
+#   learning_rate: 0.0003851665491403252
+#   ent_coef: 9.597587134393752e-08
+#   vf_coef: 0.19461625138465544
+#   policy_kwargs: 'dict(activation_fn=nn.Tanh, ortho_init=True, net_arch=[dict(pi=[64, 64], vf=[64, 64])])'
+
+ShipNav-v0:
+  n_envs: 8
+  n_timesteps: !!float 2e7
+  policy: 'MlpPolicy'
+  gamma: 0.999
+  normalize_advantage: False
+  max_grad_norm: 0.6
+  use_rms_prop: True
+  gae_lambda: 0.98
+  n_steps: 64
+  #lr_schedule: constant
+  learning_rate: 0.0003851665491403252
+  ent_coef: 9.597587134393752e-08
+  vf_coef: 0.7
+  policy_kwargs: 'dict(activation_fn=nn.Tanh, ortho_init=True, net_arch=[dict(pi=[256, 256], vf=[256, 256])])'
+
+
+# With only +10 and 10 rocks, 60 frames
+# ShipNav-v0:
+#   n_envs: 8
+#   n_timesteps: !!float 1e6
+#   policy: 'MlpPolicy'
+#   gamma: 0.99
+#   normalize_advantage: True
+#   max_grad_norm: 0.3
+#   use_rms_prop: True
+#   gae_lambda: 1.0
+#   n_steps: 32
+#   #lr_schedule: constant
+#   learning_rate: lin_0.0010057078670446065
+#   ent_coef: 1.5356075354834543e-06
+#   vf_coef: 0.788982467547876
+#   policy_kwargs: 'dict(activation_fn=nn.ReLU, ortho_init=True, net_arch=[dict(pi=[256, 256], vf=[256, 256])])'
+
+# With +10, -1 (if hit or no ep end) 
+# ShipNav-v0:
+#   n_envs: 8
+#   n_timesteps: !!float 2e7
+#   policy: 'MlpPolicy'
+#   gamma: 0.999
+#   normalize_advantage: True
+#   max_grad_norm: 0.6
+#   use_rms_prop: True
+#   gae_lambda: 0.99
+#   n_steps: 64
+#   #lr_schedule: constant
+#   learning_rate: 7.40140782178084e-05
+#   ent_coef: 0.08340198722150012
+#   vf_coef: 0.6715509627672132
+#   policy_kwargs: 'dict(activation_fn=nn.ReLU, ortho_init=True, net_arch=[dict(pi=[256, 256], vf=[256, 256])])'
