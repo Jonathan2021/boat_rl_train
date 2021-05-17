@@ -99,7 +99,7 @@ def sample_a2c_params(trial: optuna.Trial) -> Dict[str, Any]:
     # Uncomment for gSDE (continuous actions)
     # log_std_init = trial.suggest_uniform("log_std_init", -4, 1)
     ortho_init = trial.suggest_categorical("ortho_init", [False, True])
-    net_arch = trial.suggest_categorical("net_arch", ["small", "medium"])
+    net_arch = trial.suggest_categorical("net_arch", ["small", "medium", "deep"])
     # sde_net_arch = trial.suggest_categorical("sde_net_arch", [None, "tiny", "small"])
     # full_std = trial.suggest_categorical("full_std", [False, True])
     # activation_fn = trial.suggest_categorical('activation_fn', ['tanh', 'relu', 'elu', 'leaky_relu'])
@@ -111,6 +111,7 @@ def sample_a2c_params(trial: optuna.Trial) -> Dict[str, Any]:
     net_arch = {
         "small": [dict(pi=[64, 64], vf=[64, 64])],
         "medium": [dict(pi=[256, 256], vf=[256, 256])],
+        "deep": [dict(pi=[256, 256, 64, 64], vf=[256, 256, 64, 64])]
     }[net_arch]
 
     # sde_net_arch = {
