@@ -235,39 +235,37 @@ ReacherBulletEnv-v0:
   use_sde: True
   policy_kwargs: "dict(log_std_init=-2, ortho_init=False)"
 
+# ShipNav-v0:
+#  n_envs: 8
+#  n_timesteps: !!float 2e6
+#  policy: 'MlpPolicy'
+#  gamma: 0.999
+#  normalize_advantage: False
+#  max_grad_norm: 0.7
+#  use_rms_prop: False
+#  gae_lambda: 0.98
+#  n_steps: 256
+#  #lr_schedule: constant
+#  learning_rate: 0.0003851665491403252
+#  ent_coef: 9.597587134393752e-08
+#  vf_coef: 0.19461625138465544
+#  policy_kwargs: 'dict(activation_fn=nn.Tanh, ortho_init=True, net_arch=[dict(pi=[64, 64], vf=[64, 64])])'
 
 # ShipNav-v0:
 #   n_envs: 8
-#   n_timesteps: !!float 1e6
+#   n_timesteps: !!float 2e7
 #   policy: 'MlpPolicy'
 #   gamma: 0.999
 #   normalize_advantage: False
-#   max_grad_norm: 0.7
-#   use_rms_prop: False
+#   max_grad_norm: 0.6
+#   use_rms_prop: True
 #   gae_lambda: 0.98
-#   n_steps: 256
+#   n_steps: 64
 #   #lr_schedule: constant
 #   learning_rate: 0.0003851665491403252
 #   ent_coef: 9.597587134393752e-08
-#   vf_coef: 0.19461625138465544
-#   policy_kwargs: 'dict(activation_fn=nn.Tanh, ortho_init=True, net_arch=[dict(pi=[64, 64], vf=[64, 64])])'
-
-ShipNav-v0:
-  n_envs: 8
-  n_timesteps: !!float 2e7
-  policy: 'MlpPolicy'
-  gamma: 0.999
-  normalize_advantage: False
-  max_grad_norm: 0.6
-  use_rms_prop: True
-  gae_lambda: 0.98
-  n_steps: 64
-  #lr_schedule: constant
-  learning_rate: 0.0003851665491403252
-  ent_coef: 9.597587134393752e-08
-  vf_coef: 0.7
-  policy_kwargs: 'dict(activation_fn=nn.Tanh, ortho_init=True, net_arch=[dict(pi=[256, 256], vf=[256, 256])])'
-
+#   vf_coef: 0.7
+#   policy_kwargs: 'dict(activation_fn=nn.Tanh, ortho_init=True, net_arch=[dict(pi=[256, 256], vf=[256, 256])])'
 
 # With only +10 and 10 rocks, 60 frames
 # ShipNav-v0:
@@ -302,3 +300,36 @@ ShipNav-v0:
 #   ent_coef: 0.08340198722150012
 #   vf_coef: 0.6715509627672132
 #   policy_kwargs: 'dict(activation_fn=nn.ReLU, ortho_init=True, net_arch=[dict(pi=[256, 256], vf=[256, 256])])'
+
+# 60 trial opt for +10 (30 rocks obs)
+ShipNav-v0:
+  n_envs: 8
+  n_timesteps: !!float 1e8
+  policy: 'MlpPolicy'
+  gamma: 0.995
+  normalize_advantage: True
+  max_grad_norm: 2
+  use_rms_prop: False
+  gae_lambda: 0.99
+  n_steps: 256
+  #lr_schedule: constant
+  learning_rate: 1.0454402147184612e-05
+  ent_coef: 0.07123205384725213
+  vf_coef: 0.4650581927897999
+  policy_kwargs: 'dict(activation_fn=nn.ReLU, ortho_init=False, net_arch=[dict(pi=[256, 256], vf=[256, 256])])'
+
+ShipNav-v1:
+  n_envs: 8
+  n_timesteps: !!float 1e1
+  policy: 'MlpPolicy'
+  gamma: 0.995
+  normalize_advantage: True
+  max_grad_norm: 2
+  use_rms_prop: False
+  gae_lambda: 0.99
+  n_steps: 256
+  #lr_schedule: constant
+  learning_rate: 1.0454402147184612e-05
+  ent_coef: 0.07123205384725213
+  vf_coef: 0.4650581927897999
+  policy_kwargs: 'dict(activation_fn=nn.ReLU, ortho_init=False, net_arch=[dict(pi=[256, 256], vf=[256, 256])])'
