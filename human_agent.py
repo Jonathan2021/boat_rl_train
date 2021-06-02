@@ -1,4 +1,5 @@
 #%% imports
+import gym
 import gym.spaces
 import time
 import shipNavEnv
@@ -8,8 +9,9 @@ import math
 #try:
 #    myEnv.reset()
 #except NameError:
-myEnv = gym.make('shipNavEnv:ShipNav-v0',n_rocks=5, n_rocks_obs=0)
-    #myEnv = gym.make('shipNavEnv:ShipNav-v1',n_rocks=60,n_rocks_obs=1,control_throttle=True)
+myEnv = gym.make('shipNavEnv:ShipNav-v0',n_rocks=50, n_rocks_obs=10)
+#myEnv = gym.make('shipNavEnv:ShipNav-v1',n_rocks=30, n_lidars=11, rock_scale=1)
+#myEnv = gym.make('shipNavEnv:ShipNav-v2',n_rocks=60,n_rocks_obs=1,control_throttle=True)
     
 myEnv.reset()
 
@@ -97,7 +99,7 @@ def rollout(myEnv):
         while human_sets_pause:
             myEnv.render()
             time.sleep(0.01)
-    print("timesteps %i reward %0.2f" % (total_timesteps, total_reward))
+    print("********** timesteps %i reward %0.2f ***********" % (total_timesteps, total_reward))
 
 print("ACTIONS={}".format(ACTIONS))
 print("Press keys 1 2 3 ... to take actions 1 2 3 ...")

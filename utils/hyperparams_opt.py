@@ -30,7 +30,7 @@ def sample_ppo_params(trial: optuna.Trial) -> Dict[str, Any]:
     gae_lambda = trial.suggest_categorical("gae_lambda", [0.8, 0.9, 0.92, 0.95, 0.98, 0.99, 1.0])
     max_grad_norm = trial.suggest_categorical("max_grad_norm", [0.3, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 2, 5])
     vf_coef = trial.suggest_uniform("vf_coef", 0, 1)
-    net_arch = trial.suggest_categorical("net_arch", ["small", "medium"])
+    net_arch = trial.suggest_categorical("net_arch", ["small", "medium", "deep"])
     # Uncomment for gSDE (continuous actions)
     # log_std_init = trial.suggest_uniform("log_std_init", -4, 1)
     # Uncomment for gSDE (continuous action)
@@ -53,6 +53,7 @@ def sample_ppo_params(trial: optuna.Trial) -> Dict[str, Any]:
     net_arch = {
         "small": [dict(pi=[64, 64], vf=[64, 64])],
         "medium": [dict(pi=[256, 256], vf=[256, 256])],
+        "deep": [dict(pi=[256, 256, 64, 64], vf=[256, 256, 64, 64])],
     }[net_arch]
 
     activation_fn = {"tanh": nn.Tanh, "relu": nn.ReLU, "elu": nn.ELU, "leaky_relu": nn.LeakyReLU}[activation_fn]
@@ -111,7 +112,7 @@ def sample_a2c_params(trial: optuna.Trial) -> Dict[str, Any]:
     net_arch = {
         "small": [dict(pi=[64, 64], vf=[64, 64])],
         "medium": [dict(pi=[256, 256], vf=[256, 256])],
-        "deep": [dict(pi=[256, 256, 64, 64], vf=[256, 256, 64, 64])]
+        "deep": [dict(pi=[256, 256, 64, 64], vf=[256, 256, 64, 64])],
     }[net_arch]
 
     # sde_net_arch = {

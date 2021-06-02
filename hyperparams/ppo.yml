@@ -385,7 +385,7 @@ CarRacing-v0:
                        )"
 
 ShipNav-v0:
-    frame_stack: 4
+    frame_stack: 10
     n_envs: 8
     n_timesteps: !!float 1e6
     policy: 'MlpPolicy'
@@ -404,3 +404,23 @@ ShipNav-v0:
     policy_kwargs: "dict(log_std_init=-2,
                        ortho_init=False,
                        )"
+
+# Worked out ok for old reward 
+ShipNav-v1:
+    frame_stack: 10
+    n_envs: 8
+    n_timesteps: !!float 1e8
+    policy: 'MlpPolicy'
+    batch_size: 128
+    n_steps: 128
+    gamma: 0.999
+    learning_rate: 0.00013572102391399453
+    ent_coef: 1.1819753982189654e-08 
+    clip_range: 0.1
+    n_epochs: 20
+    gae_lambda: 0.9 #1.0 à la base
+    max_grad_norm: 0.5
+    vf_coef: 0.028985975669087227
+    sde_sample_freq: 4
+    use_sde: False
+    policy_kwargs: "dict(log_std_init=-2, ortho_init=False, activation_fn=nn.Tanh, net_arch=[dict(pi=[64, 64], vf=[64, 64])])"
