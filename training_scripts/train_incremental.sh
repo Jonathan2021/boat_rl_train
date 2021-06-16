@@ -10,7 +10,7 @@ increment=-1
 cur_nb_rocks=1
 nb_rocks_max=35
 nb_obs=25
-n_lidars=10
+n_lidars=15
 frame_stack=10
 rock_scale=3
 

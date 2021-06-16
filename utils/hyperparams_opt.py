@@ -23,23 +23,23 @@ def sample_ppo_params(trial: optuna.Trial) -> Dict[str, Any]:
     learning_rate = trial.suggest_loguniform("lr", 1e-5, 1)
     lr_schedule = "constant"
     # Uncomment to enable learning rate schedule
-    # lr_schedule = trial.suggest_categorical('lr_schedule', ['linear', 'constant'])
+    lr_schedule = trial.suggest_categorical('lr_schedule', ['linear', 'constant'])
     ent_coef = trial.suggest_loguniform("ent_coef", 0.00000001, 0.1)
     clip_range = trial.suggest_categorical("clip_range", [0.1, 0.2, 0.3, 0.4])
     n_epochs = trial.suggest_categorical("n_epochs", [1, 5, 10, 20])
     gae_lambda = trial.suggest_categorical("gae_lambda", [0.8, 0.9, 0.92, 0.95, 0.98, 0.99, 1.0])
     max_grad_norm = trial.suggest_categorical("max_grad_norm", [0.3, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 2, 5])
     vf_coef = trial.suggest_uniform("vf_coef", 0, 1)
-    net_arch = trial.suggest_categorical("net_arch", ["small", "medium", "deep"])
+    net_arch = trial.suggest_categorical("net_arch", ["small", "medium", "deep_medium", "deep_small"])
     # Uncomment for gSDE (continuous actions)
     # log_std_init = trial.suggest_uniform("log_std_init", -4, 1)
     # Uncomment for gSDE (continuous action)
     # sde_sample_freq = trial.suggest_categorical("sde_sample_freq", [-1, 8, 16, 32, 64, 128, 256])
     # Orthogonal initialization
-    ortho_init = False
-    # ortho_init = trial.suggest_categorical('ortho_init', [False, True])
-    # activation_fn = trial.suggest_categorical('activation_fn', ['tanh', 'relu', 'elu', 'leaky_relu'])
-    activation_fn = trial.suggest_categorical("activation_fn", ["tanh", "relu"])
+    #ortho_init = False
+    ortho_init = trial.suggest_categorical('ortho_init', [False, True])
+    activation_fn = trial.suggest_categorical('activation_fn', ['tanh', 'relu', 'elu', 'leaky_relu'])
+    #activation_fn = trial.suggest_categorical("activation_fn", ["tanh", "relu"])
 
     # TODO: account when using multiple envs
     if batch_size > n_steps:
@@ -53,7 +53,8 @@ def sample_ppo_params(trial: optuna.Trial) -> Dict[str, Any]:
     net_arch = {
         "small": [dict(pi=[64, 64], vf=[64, 64])],
         "medium": [dict(pi=[256, 256], vf=[256, 256])],
-        "deep": [dict(pi=[256, 256, 64, 64], vf=[256, 256, 64, 64])],
+        "deep_medium": [dict(pi=[256, 256, 64, 64], vf=[256, 256, 64, 64])],
+        "deep_small": [dict(pi=[64, 64, 32, 32], vf=[64, 64, 32, 32])],
     }[net_arch]
 
     activation_fn = {"tanh": nn.Tanh, "relu": nn.ReLU, "elu": nn.ELU, "leaky_relu": nn.LeakyReLU}[activation_fn]
@@ -100,11 +101,11 @@ def sample_a2c_params(trial: optuna.Trial) -> Dict[str, Any]:
     # Uncomment for gSDE (continuous actions)
     # log_std_init = trial.suggest_uniform("log_std_init", -4, 1)
     ortho_init = trial.suggest_categorical("ortho_init", [False, True])
-    net_arch = trial.suggest_categorical("net_arch", ["small", "medium", "deep"])
+    net_arch = trial.suggest_categorical("net_arch", ["small", "medium", "deep_medium", "deep_small"])
     # sde_net_arch = trial.suggest_categorical("sde_net_arch", [None, "tiny", "small"])
     # full_std = trial.suggest_categorical("full_std", [False, True])
-    # activation_fn = trial.suggest_categorical('activation_fn', ['tanh', 'relu', 'elu', 'leaky_relu'])
-    activation_fn = trial.suggest_categorical("activation_fn", ["tanh", "relu"])
+    activation_fn = trial.suggest_categorical('activation_fn', ['tanh', 'relu', 'elu', 'leaky_relu'])
+    #activation_fn = trial.suggest_categorical("activation_fn", ["tanh", "relu"])
 
     if lr_schedule == "linear":
         learning_rate = linear_schedule(learning_rate)
@@ -112,7 +113,8 @@ def sample_a2c_params(trial: optuna.Trial) -> Dict[str, Any]:
     net_arch = {
         "small": [dict(pi=[64, 64], vf=[64, 64])],
         "medium": [dict(pi=[256, 256], vf=[256, 256])],
-        "deep": [dict(pi=[256, 256, 64, 64], vf=[256, 256, 64, 64])],
+        "deep_medium": [dict(pi=[256, 256, 64, 64], vf=[256, 256, 64, 64])],
+        "deep_small": [dict(pi=[64, 64, 32, 32], vf=[64, 64, 32, 32])],
     }[net_arch]
 
     # sde_net_arch = {
