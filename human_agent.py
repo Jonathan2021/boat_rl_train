@@ -4,14 +4,18 @@ import gym.spaces
 import time
 import shipNavEnv
 import math
+#from stable_baselines3.common.utils import set_random_seed
+#set_random_seed(7)
 
 #%% reset env
 #try:
 #    myEnv.reset()
 #except NameError:
-myEnv = gym.make('shipNavEnv:ShipNav-v0',n_rocks=50, n_rocks_obs=10)
-#myEnv = gym.make('shipNavEnv:ShipNav-v1',n_rocks=30, n_lidars=11, rock_scale=1)
-#myEnv = gym.make('shipNavEnv:ShipNav-v2',n_rocks=60,n_rocks_obs=1,control_throttle=True)
+#myEnv = gym.make('shipNavEnv:ShipNav-v0',n_rocks=50, n_rocks_obs=10)
+#myEnv = gym.make('shipNavEnv:ShipNav-v1',n_rocks=150, n_lidars=15, waypoints=True)
+#myEnv = gym.make('shipNavEnv:ShipNav-v2',n_ships=60,n_rocks_obs=10)#,control_throttle=True)
+#myEnv = gym.make('shipNavEnv:ShipNav-v5',n_ships=1)#,control_throttle=True)
+myEnv = gym.make('shipNavEnv:ShipNav-v6',n_ships=15, n_obstacles_obs=10, scale=1)#,control_throttle=True)
     
 myEnv.reset()
 
@@ -100,6 +104,10 @@ def rollout(myEnv):
             myEnv.render()
             time.sleep(0.01)
     print("********** timesteps %i reward %0.2f ***********" % (total_timesteps, total_reward))
+#    print("Hit rew %d" % myEnv.reward_hit)
+#    print("time_rew %f" % myEnv.time_rew)
+#    print("dist_rew %f" % myEnv.dist_rew)
+#    print("rew max time %d" % myEnv.reward_max_time)
 
 print("ACTIONS={}".format(ACTIONS))
 print("Press keys 1 2 3 ... to take actions 1 2 3 ...")

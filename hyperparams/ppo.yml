@@ -406,21 +406,115 @@ ShipNav-v0:
                        )"
 
 # Worked out ok for old reward 
+#ShipNav-v1:
+#    frame_stack: 10
+#    n_envs: 8
+#    n_timesteps: !!float 1e8
+#    policy: 'MlpPolicy'
+#    batch_size: 128
+#    n_steps: 128
+#    gamma: 0.999
+#    learning_rate: 0.00013572102391399453
+#    ent_coef: 1.1819753982189654e-08 
+#    clip_range: 0.1
+#    n_epochs: 20
+#    gae_lambda: 0.9 #1.0 à la base
+#    max_grad_norm: 0.5
+#    vf_coef: 0.028985975669087227
+#    sde_sample_freq: 4
+#    use_sde: False
+#    policy_kwargs: "dict(log_std_init=-2, ortho_init=False, activation_fn=nn.Tanh, net_arch=[dict(pi=[64, 64], vf=[64, 64])])"
+
+# New reward
+#ShipNav-v1:
+#    n_envs: 8
+#    n_timesteps: !!float 1e8
+#    policy: 'MlpPolicy'
+#    batch_size: 256
+#    n_steps: 2048
+#    gamma: 0.995
+#    learning_rate: 8.769742094054023e-05
+#    ent_coef: 1.9371306038591707e-06 
+#    clip_range: 0.4
+#    n_epochs: 10
+#    gae_lambda: 1.0
+#    max_grad_norm: 2
+#    vf_coef: 0.7340386164082658
+#    sde_sample_freq: 4
+#    use_sde: False
+#    policy_kwargs: "dict(log_std_init=-2, ortho_init=False, activation_fn=nn.ReLU, net_arch=[dict(pi=[64, 64], vf=[64, 64])])"
+
+## Hyperparam opt (20 eval, 3e6 steps)
+#ShipNav-v1:
+#    n_envs: 8
+#    n_timesteps: !!float 1e8
+#    policy: 'MlpPolicy'
+#    batch_size: 256
+#    n_steps: 512
+#    gamma: 0.98
+#    learning_rate: 0.0007336374870445043
+#    ent_coef: 3.812614058346355e-07
+#    clip_range: 0.2
+#    n_epochs: 20
+#    gae_lambda: 0.9
+#    max_grad_norm: 0.6
+#    vf_coef: 0.8187372394213298
+#    sde_sample_freq: 4
+#    use_sde: False
+#    policy_kwargs: "dict(log_std_init=-2, ortho_init=False, activation_fn=nn.ReLU, net_arch=[dict(pi=[64, 64], vf=[64, 64])])"
+
+# Hyperparam opt (20 eval, 3e6 steps)
+#ShipNav-v1:
+#    n_envs: 8
+#    n_timesteps: !!float 1e8
+#    policy: 'MlpPolicy'
+#    batch_size: 256
+#    n_steps: 512
+#    gamma: 0.99
+#    learning_rate: 0.0005224432670018744
+#    ent_coef: 0.0007803062112300795
+#    clip_range: 0.1
+#    n_epochs: 5
+#    gae_lambda: 0.8
+#    max_grad_norm: 0.8
+#    vf_coef: 0.7443606490268951
+#    sde_sample_freq: 4
+#    use_sde: False
+#    policy_kwargs: "dict(log_std_init=-2, ortho_init=True, activation_fn=nn.Tanh, net_arch=[dict(pi=[64, 64, 32, 32], vf=[64, 64, 32, 32])])"
+
+#Hyperparams short lidar, more rocks
 ShipNav-v1:
-    frame_stack: 10
     n_envs: 8
     n_timesteps: !!float 1e8
     policy: 'MlpPolicy'
-    batch_size: 128
-    n_steps: 128
-    gamma: 0.999
-    learning_rate: 0.00013572102391399453
-    ent_coef: 1.1819753982189654e-08 
-    clip_range: 0.1
-    n_epochs: 20
-    gae_lambda: 0.9 #1.0 à la base
+    batch_size: 256
+    n_steps: 32
+    gamma: 0.9999
+    learning_rate: 0.0003785153719552746
+    ent_coef: 0.03236081644151682
+    clip_range: 0.2
+    n_epochs: 10
+    gae_lambda: 0.9
     max_grad_norm: 0.5
-    vf_coef: 0.028985975669087227
+    vf_coef: 0.7625576703936189
     sde_sample_freq: 4
     use_sde: False
-    policy_kwargs: "dict(log_std_init=-2, ortho_init=False, activation_fn=nn.Tanh, net_arch=[dict(pi=[64, 64], vf=[64, 64])])"
+    policy_kwargs: "dict(log_std_init=-2, ortho_init=False, activation_fn=nn.LeakyReLU, net_arch=[dict(pi=[64, 64, 32, 32], vf=[64, 64, 32, 32])])"
+
+ShipNav-v6:
+    n_envs: 8
+    n_timesteps: !!float 1e8
+    policy: 'MlpPolicy'
+    batch_size: 32
+    n_steps: 32
+    gamma: 0.999
+    learning_rate: 0.00102342229471244580
+    ent_coef: 0.0006641565927085081
+    clip_range: 0.1
+    n_epochs: 5
+    gae_lambda: 0.99
+    max_grad_norm: 1
+    vf_coef: 0.6018508205064823
+    sde_sample_freq: 4
+    use_sde: False
+    policy_kwargs: "dict(log_std_init=-2, ortho_init=False, activation_fn=nn.ReLU, net_arch=[dict(pi=[64, 64, 32, 32], vf=[64, 64, 32, 32])])"

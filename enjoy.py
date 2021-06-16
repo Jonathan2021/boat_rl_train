@@ -17,6 +17,7 @@ from utils.utils import StoreDict
 def main():  # noqa: C901
     parser = argparse.ArgumentParser()
     parser.add_argument("--env", help="environment ID", type=str, default="CartPole-v1")
+    parser.add_argument("--other-env", help="Run agent on a different environment ID", type=str, default="")
     parser.add_argument("-f", "--folder", help="Log folder", type=str, default="rl-trained-agents")
     parser.add_argument("--algo", help="RL Algorithm", default="ppo", type=str, required=False, choices=list(ALGOS.keys()))
     parser.add_argument("-n", "--n-timesteps", help="number of timesteps", default=1000, type=int)
@@ -125,7 +126,7 @@ def main():  # noqa: C901
     log_dir = args.reward_log if args.reward_log != "" else None
 
     env = create_test_env(
-        env_id,
+        env_id if args.other_env == "" else args.other_env,
         n_envs=args.n_envs,
         stats_path=stats_path,
         seed=args.seed,
