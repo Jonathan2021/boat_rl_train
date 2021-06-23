@@ -15,7 +15,8 @@ import math
 #myEnv = gym.make('shipNavEnv:ShipNav-v1',n_rocks=150, n_lidars=15, waypoints=True)
 #myEnv = gym.make('shipNavEnv:ShipNav-v2',n_ships=60,n_rocks_obs=10)#,control_throttle=True)
 #myEnv = gym.make('shipNavEnv:ShipNav-v5',n_ships=1)#,control_throttle=True)
-myEnv = gym.make('shipNavEnv:ShipNav-v6',n_ships=15, n_obstacles_obs=10, scale=1)#,control_throttle=True)
+#myEnv = gym.make('shipNavEnv:ShipNav-v6',n_ships=50, n_obstacles_obs=20)#,control_throttle=True)
+myEnv = gym.make('shipNavEnv:ShipNav-v7',n_ships=30, n_rocks=20, n_obstacles_obs=10, waypoints=False)# , ship_scale=1, rock_scale=1)#,control_throttle=True)
     
 myEnv.reset()
 
@@ -101,8 +102,8 @@ def rollout(myEnv):
         if done: break
         if human_wants_restart: break
         while human_sets_pause:
-            myEnv.render()
             time.sleep(0.01)
+            myEnv.render()
     print("********** timesteps %i reward %0.2f ***********" % (total_timesteps, total_reward))
 #    print("Hit rew %d" % myEnv.reward_hit)
 #    print("time_rew %f" % myEnv.time_rew)
@@ -115,6 +116,7 @@ print("No keys pressed is taking action 4")
 
 while 1:
     window_still_open = rollout(myEnv)
+    myEnv.render(close=True)
     if window_still_open==False: 
         print('break')
         break

@@ -501,20 +501,43 @@ ShipNav-v1:
     use_sde: False
     policy_kwargs: "dict(log_std_init=-2, ortho_init=False, activation_fn=nn.LeakyReLU, net_arch=[dict(pi=[64, 64, 32, 32], vf=[64, 64, 32, 32])])"
 
+# Tuned 50 ships
 ShipNav-v6:
     n_envs: 8
     n_timesteps: !!float 1e8
     policy: 'MlpPolicy'
-    batch_size: 32
-    n_steps: 32
-    gamma: 0.999
-    learning_rate: 0.00102342229471244580
-    ent_coef: 0.0006641565927085081
-    clip_range: 0.1
-    n_epochs: 5
-    gae_lambda: 0.99
-    max_grad_norm: 1
-    vf_coef: 0.6018508205064823
+    batch_size: 64
+    n_steps: 512
+    gamma: 0.9999
+    learning_rate: 0.00042689046936108784
+    ent_coef: 9.033914225425378e-06
+    clip_range: 0.4
+    n_epochs: 10
+    gae_lambda: 0.95
+    max_grad_norm: 0.8
+    vf_coef: 0.194769480864723
     sde_sample_freq: 4
     use_sde: False
-    policy_kwargs: "dict(log_std_init=-2, ortho_init=False, activation_fn=nn.ReLU, net_arch=[dict(pi=[64, 64, 32, 32], vf=[64, 64, 32, 32])])"
+    policy_kwargs: "dict(log_std_init=-2, ortho_init=False, activation_fn=nn.ELU, net_arch=[dict(pi=[256, 256, 64, 64], vf=[256, 256, 64, 64])])"
+
+
+# Tuned 25 rocks 50 ships
+ShipNav-v7:
+    n_envs: 8
+    n_timesteps: !!float 1e8
+    policy: 'MlpPolicy'
+    batch_size: 8
+    n_steps: 2048
+    gamma: 0.98
+    learning_rate: 9.128568453320179e-05
+    ent_coef: 9.450744448874276e-05
+    clip_range: 0.1
+    n_epochs: 10
+    gae_lambda: 0.9
+    max_grad_norm: 0.5
+    vf_coef: 0.417603662181363
+    sde_sample_freq: 4
+    use_sde: False
+    policy_kwargs: "dict(log_std_init=-2, ortho_init=False, activation_fn=nn.ReLU, net_arch=[dict(pi=[256, 256, 64, 64], vf=[256, 256, 64, 64])])"
+
+
