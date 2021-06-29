@@ -59,8 +59,7 @@ BipedalWalkerHardcore-v3:
   policy_kwargs: "dict(net_arch=[400, 300])"
 
 # Tuned
-HalfCheetahBulletEnv-v0:
-  env_wrapper: sb3_contrib.common.wrappers.TimeFeatureWrapper
+HalfCheetahBulletEnv-v0: &pybullet-defaults
   n_timesteps: !!float 1e6
   policy: 'MlpPolicy'
   gamma: 0.98
@@ -74,51 +73,17 @@ HalfCheetahBulletEnv-v0:
   policy_kwargs: "dict(net_arch=[400, 300])"
 
 AntBulletEnv-v0:
-  env_wrapper: sb3_contrib.common.wrappers.TimeFeatureWrapper
-  n_timesteps: !!float 1e6
-  policy: 'MlpPolicy'
-  gamma: 0.98
-  buffer_size: 200000
-  learning_starts: 10000
-  noise_type: 'normal'
-  noise_std: 0.1
-  gradient_steps: -1
-  train_freq: [1, "episode"]
-  learning_rate: !!float 1e-3
-  policy_kwargs: "dict(net_arch=[400, 300])"
+  <<: *pybullet-defaults
 
 HopperBulletEnv-v0:
-  env_wrapper: sb3_contrib.common.wrappers.TimeFeatureWrapper
-  n_timesteps: !!float 1e6
-  policy: 'MlpPolicy'
-  gamma: 0.98
-  buffer_size: 200000
-  learning_starts: 10000
-  noise_type: 'normal'
-  noise_std: 0.1
-  gradient_steps: -1
-  train_freq: [1, "episode"]
-  learning_rate: !!float 1e-3
-  policy_kwargs: "dict(net_arch=[400, 300])"
+  <<: *pybullet-defaults
 
 Walker2DBulletEnv-v0:
-  env_wrapper: sb3_contrib.common.wrappers.TimeFeatureWrapper
-  n_timesteps: !!float 1e6
-  policy: 'MlpPolicy'
-  gamma: 0.98
-  buffer_size: 200000
-  learning_starts: 10000
-  noise_type: 'normal'
-  noise_std: 0.1
-  gradient_steps: -1
-  train_freq: [1, "episode"]
-  learning_rate: !!float 1e-3
-  policy_kwargs: "dict(net_arch=[400, 300])"
+  <<: *pybullet-defaults
 
 
 # TO BE tested
 HumanoidBulletEnv-v0:
-  env_wrapper: sb3_contrib.common.wrappers.TimeFeatureWrapper
   n_timesteps: !!float 2e6
   policy: 'MlpPolicy'
   gamma: 0.98
@@ -132,51 +97,20 @@ HumanoidBulletEnv-v0:
 
 # Tuned
 ReacherBulletEnv-v0:
-  env_wrapper: sb3_contrib.common.wrappers.TimeFeatureWrapper
+  <<: *pybullet-defaults
   n_timesteps: !!float 3e5
-  policy: 'MlpPolicy'
-  gamma: 0.98
-  buffer_size: 200000
-  learning_starts: 10000
-  noise_type: 'normal'
-  noise_std: 0.1
-  gradient_steps: -1
-  train_freq: [1, "episode"]
-  learning_rate: !!float 1e-3
-  policy_kwargs: "dict(net_arch=[400, 300])"
 
 # Tuned
 InvertedDoublePendulumBulletEnv-v0:
-  env_wrapper: sb3_contrib.common.wrappers.TimeFeatureWrapper
-  n_timesteps: !!float 1e6
-  policy: 'MlpPolicy'
-  gamma: 0.98
-  buffer_size: 200000
-  learning_starts: 10000
-  noise_type: 'normal'
-  noise_std: 0.1
-  gradient_steps: -1
-  train_freq: [1, "episode"]
-  learning_rate: !!float 1e-3
-  policy_kwargs: "dict(net_arch=[400, 300])"
+  <<: *pybullet-defaults
 
 # Tuned
 InvertedPendulumSwingupBulletEnv-v0:
-  env_wrapper: sb3_contrib.common.wrappers.TimeFeatureWrapper
+  <<: *pybullet-defaults
   n_timesteps: !!float 3e5
-  policy: 'MlpPolicy'
-  gamma: 0.98
-  buffer_size: 200000
-  learning_starts: 10000
-  noise_type: 'normal'
-  noise_std: 0.1
-  gradient_steps: -1
-  train_freq: [1, "episode"]
-  learning_rate: !!float 1e-3
-  policy_kwargs: "dict(net_arch=[400, 300])"
+
 
 MinitaurBulletEnv-v0:
-  env_wrapper: sb3_contrib.common.wrappers.TimeFeatureWrapper
   n_timesteps: !!float 1e6
   policy: 'MlpPolicy'
   gamma: 0.99
@@ -186,6 +120,6 @@ MinitaurBulletEnv-v0:
   learning_starts: 10000
   batch_size: 100
   learning_rate: !!float 1e-3
-  train_freq: 1000
-  gradient_steps: 1000
+  train_freq: 1
+  gradient_steps: 1
   policy_kwargs: "dict(net_arch=[400, 300])"
