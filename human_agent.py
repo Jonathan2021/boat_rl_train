@@ -4,19 +4,19 @@ import gym.spaces
 import time
 import shipNavEnv
 import math
-from stable_baselines3.common.utils import set_random_seed
-set_random_seed(1)
+#from stable_baselines3.common.utils import set_random_seed
+#set_random_seed(1)
 
 #%% reset env
 #try:
 #    myEnv.reset()
 #except NameError:
-myEnv = gym.make('shipNavEnv:ShipNav-v0',n_rocks=50, n_obstacles_obs=0, ship_view=True)
+#myEnv = gym.make('shipNavEnv:ShipNav-v0',n_rocks=50, n_obstacles_obs=0, ship_view=True)
 #myEnv = gym.make('shipNavEnv:ShipNav-v1',n_rocks=150, n_lidars=15, waypoints=True)
 #myEnv = gym.make('shipNavEnv:ShipNav-v2',n_ships=60, n_obstacles_obs=3, get_obstacles=True)#,control_throttle=True)
 #myEnv = gym.make('shipNavEnv:ShipNav-v5',n_ships=35)#,control_throttle=True)
 #myEnv = gym.make('shipNavEnv:ShipNav-v6',n_ships=50, n_obstacles_obs=20)#,control_throttle=True)
-#myEnv = gym.make('shipNavEnv:ShipNav-v7',n_ships=50, n_rocks=30, n_obstacles_obs=10, waypoints=False, ship_view=True)# , ship_scale=1, rock_scale=1)#,control_throttle=True)
+myEnv = gym.make('shipNavEnv:ShipNav-v7',n_ships=50, n_rocks=30, n_obstacles_obs=0, waypoints=False, ship_view=True)#, ship_scale=1, rock_scale=1)#,control_throttle=True)
     
 #%% other
 PRINT_DEBUG_MSG = True

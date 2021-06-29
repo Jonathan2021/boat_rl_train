@@ -410,7 +410,7 @@ ShipNav-v0:
 #    frame_stack: 10
 #    n_envs: 8
 #    n_timesteps: !!float 1e8
-#    policy: 'MlpPolicy'
+#    policy: 'MultiInputPolicy'
 #    batch_size: 128
 #    n_steps: 128
 #    gamma: 0.999
@@ -429,7 +429,7 @@ ShipNav-v0:
 #ShipNav-v1:
 #    n_envs: 8
 #    n_timesteps: !!float 1e8
-#    policy: 'MlpPolicy'
+#    policy: 'MultiInputPolicy'
 #    batch_size: 256
 #    n_steps: 2048
 #    gamma: 0.995
@@ -448,7 +448,7 @@ ShipNav-v0:
 #ShipNav-v1:
 #    n_envs: 8
 #    n_timesteps: !!float 1e8
-#    policy: 'MlpPolicy'
+#    policy: 'MultiInputPolicy'
 #    batch_size: 256
 #    n_steps: 512
 #    gamma: 0.98
@@ -467,7 +467,7 @@ ShipNav-v0:
 #ShipNav-v1:
 #    n_envs: 8
 #    n_timesteps: !!float 1e8
-#    policy: 'MlpPolicy'
+#    policy: 'MultiInputPolicy'
 #    batch_size: 256
 #    n_steps: 512
 #    gamma: 0.99
@@ -483,29 +483,29 @@ ShipNav-v0:
 #    policy_kwargs: "dict(log_std_init=-2, ortho_init=True, activation_fn=nn.Tanh, net_arch=[dict(pi=[64, 64, 32, 32], vf=[64, 64, 32, 32])])"
 
 #Hyperparams short lidar, more rocks
-ShipNav-v1:
-    n_envs: 8
-    n_timesteps: !!float 1e8
-    policy: 'MlpPolicy'
-    batch_size: 256
-    n_steps: 32
-    gamma: 0.9999
-    learning_rate: 0.0003785153719552746
-    ent_coef: 0.03236081644151682
-    clip_range: 0.2
-    n_epochs: 10
-    gae_lambda: 0.9
-    max_grad_norm: 0.5
-    vf_coef: 0.7625576703936189
-    sde_sample_freq: 4
-    use_sde: False
-    policy_kwargs: "dict(log_std_init=-2, ortho_init=False, activation_fn=nn.LeakyReLU, net_arch=[dict(pi=[64, 64, 32, 32], vf=[64, 64, 32, 32])])"
+#ShipNav-v1:
+#    n_envs: 8
+#    n_timesteps: !!float 1e8
+#    policy: 'MultiInputPolicy'
+#    batch_size: 256
+#    n_steps: 32
+#    gamma: 0.9999
+#    learning_rate: 0.0003785153719552746
+#    ent_coef: 0.03236081644151682
+#    clip_range: 0.2
+#    n_epochs: 10
+#    gae_lambda: 0.9
+#    max_grad_norm: 0.5
+#    vf_coef: 0.7625576703936189
+#    sde_sample_freq: 4
+#    use_sde: False
+#    policy_kwargs: "dict(log_std_init=-2, ortho_init=False, activation_fn=nn.LeakyReLU, net_arch=[dict(pi=[64, 64, 32, 32], vf=[64, 64, 32, 32])])"
 
 # Tuned 50 ships
 ShipNav-v6:
     n_envs: 8
     n_timesteps: !!float 1e8
-    policy: 'MlpPolicy'
+    policy: 'MultiInputPolicy'
     batch_size: 64
     n_steps: 512
     gamma: 0.9999
@@ -525,7 +525,7 @@ ShipNav-v6:
 ShipNav-v7:
     n_envs: 8
     n_timesteps: !!float 1e8
-    policy: 'MlpPolicy'
+    policy: 'MultiInputPolicy'
     batch_size: 8
     n_steps: 2048
     gamma: 0.98
@@ -540,4 +540,22 @@ ShipNav-v7:
     use_sde: False
     policy_kwargs: "dict(log_std_init=-2, ortho_init=False, activation_fn=nn.ReLU, net_arch=[dict(pi=[512, 512, 256, 256, 64, 64], vf=[512, 512, 256, 256, 64, 64])])"
 
+# Reward v3 test
+ShipNav-v1:
+    n_envs: 8
+    n_timesteps: !!float 1e8
+    policy: 'MultiInputPolicy'
+    batch_size: 256
+    n_steps: 32
+    gamma: 0.9999
+    learning_rate: 0.0003785153719552746
+    ent_coef: 0.03236081644151682
+    clip_range: 0.2
+    n_epochs: 10
+    gae_lambda: 0.9
+    max_grad_norm: 0.5
+    vf_coef: 0.7625576703936189
+    sde_sample_freq: 4
+    use_sde: False
+    policy_kwargs: "dict(log_std_init=-2, ortho_init=False, activation_fn=nn.LeakyReLU, net_arch=[dict(pi=[64, 64, 32, 32], vf=[64,64,32,32])])"
 
