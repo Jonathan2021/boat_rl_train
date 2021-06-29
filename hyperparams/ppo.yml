@@ -538,6 +538,6 @@ ShipNav-v7:
     vf_coef: 0.417603662181363
     sde_sample_freq: 4
     use_sde: False
-    policy_kwargs: "dict(log_std_init=-2, ortho_init=False, activation_fn=nn.ReLU, net_arch=[dict(pi=[256, 256, 64, 64], vf=[256, 256, 64, 64])])"
+    policy_kwargs: "dict(log_std_init=-2, ortho_init=False, activation_fn=nn.ReLU, net_arch=[dict(pi=[512, 512, 256, 256, 64, 64], vf=[512, 512, 256, 256, 64, 64])])"
 
 

@@ -4,22 +4,20 @@ import gym.spaces
 import time
 import shipNavEnv
 import math
-#from stable_baselines3.common.utils import set_random_seed
-#set_random_seed(7)
+from stable_baselines3.common.utils import set_random_seed
+set_random_seed(1)
 
 #%% reset env
 #try:
 #    myEnv.reset()
 #except NameError:
-#myEnv = gym.make('shipNavEnv:ShipNav-v0',n_rocks=50, n_rocks_obs=10)
+myEnv = gym.make('shipNavEnv:ShipNav-v0',n_rocks=50, n_obstacles_obs=0, ship_view=True)
 #myEnv = gym.make('shipNavEnv:ShipNav-v1',n_rocks=150, n_lidars=15, waypoints=True)
-#myEnv = gym.make('shipNavEnv:ShipNav-v2',n_ships=60,n_rocks_obs=10)#,control_throttle=True)
-#myEnv = gym.make('shipNavEnv:ShipNav-v5',n_ships=1)#,control_throttle=True)
+#myEnv = gym.make('shipNavEnv:ShipNav-v2',n_ships=60, n_obstacles_obs=3, get_obstacles=True)#,control_throttle=True)
+#myEnv = gym.make('shipNavEnv:ShipNav-v5',n_ships=35)#,control_throttle=True)
 #myEnv = gym.make('shipNavEnv:ShipNav-v6',n_ships=50, n_obstacles_obs=20)#,control_throttle=True)
-myEnv = gym.make('shipNavEnv:ShipNav-v7',n_ships=30, n_rocks=20, n_obstacles_obs=10, waypoints=False)# , ship_scale=1, rock_scale=1)#,control_throttle=True)
+#myEnv = gym.make('shipNavEnv:ShipNav-v7',n_ships=50, n_rocks=30, n_obstacles_obs=10, waypoints=False, ship_view=True)# , ship_scale=1, rock_scale=1)#,control_throttle=True)
     
-myEnv.reset()
-
 #%% other
 PRINT_DEBUG_MSG = True
 
@@ -77,8 +75,8 @@ def rollout(myEnv):
     human_wants_restart = False
     obser = myEnv.reset()
     myEnv.render()
-    myEnv.unwrapped.world.viewer.window.on_key_press = key_press
-    myEnv.unwrapped.world.viewer.window.on_key_release = key_release
+    myEnv.unwrapped.main_viewer.window.on_key_press = key_press
+    myEnv.unwrapped.main_viewer.window.on_key_release = key_release
     skip = 0
     total_reward = 0
     total_timesteps = 0
@@ -97,7 +95,7 @@ def rollout(myEnv):
         total_reward += r
         window_still_open = myEnv.render()
         if window_still_open==False: 
-            myEnv.world.viewer.close()
+            myEnv.render(close=True)
             return False
         if done: break
         if human_wants_restart: break
@@ -116,9 +114,6 @@ print("No keys pressed is taking action 4")
 
 while 1:
     window_still_open = rollout(myEnv)
-    myEnv.render(close=True)
     if window_still_open==False: 
         print('break')
         break
-
-
