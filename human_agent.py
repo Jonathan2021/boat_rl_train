@@ -16,7 +16,7 @@ import math
 #myEnv = gym.make('shipNavEnv:ShipNav-v2',n_ships=60, n_obstacles_obs=3, get_obstacles=True)#,control_throttle=True)
 #myEnv = gym.make('shipNavEnv:ShipNav-v5',n_ships=35)#,control_throttle=True)
 #myEnv = gym.make('shipNavEnv:ShipNav-v6',n_ships=50, n_obstacles_obs=20)#,control_throttle=True)
-myEnv = gym.make('shipNavEnv:ShipNav-v7',n_ships=50, n_rocks=30, n_obstacles_obs=0, waypoints=False, ship_view=True)#, ship_scale=1, rock_scale=1)#,control_throttle=True)
+myEnv = gym.make('shipNavEnv:ShipNav-v7',n_ships=50, n_rocks=30, n_obstacles_obs=0, waypoints=False, ship_view=False, display_traj=True, display_traj_T=1)#, ship_scale=1, rock_scale=1)#,control_throttle=True)
     
 #%% other
 PRINT_DEBUG_MSG = True
@@ -92,6 +92,7 @@ def rollout(myEnv):
         obser, r, done, info = myEnv.step(a)
         #print("reward %0.3f distance %0.3f bearing %0.3f" % (r, obser[4]*1600, obser[5]*180))
         #print(obser)
+        print(info['ship_0'])
         total_reward += r
         window_still_open = myEnv.render()
         if window_still_open==False: 
