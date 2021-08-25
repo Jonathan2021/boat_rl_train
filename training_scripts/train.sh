@@ -11,4 +11,4 @@ n_ships=0
 n_obstacles_obs=0
 [ $# -gt 4 ] && n_obstacles_obs=$5
 
-cd ..; python train.py --algo $algo --env ShipNav-v$env --env-kwargs n_ships:$n_ships n_rocks:$n_rocks n_lidars:15 n_obstacles_obs:$n_obstacles_obs waypoints:False -n 10_000_000 -tb tb #--hyperparams frame_stack:10
+cd ..; python train.py --algo $algo --env ShipNav-v$env --env-kwargs n_ships:$n_ships n_rocks:$n_rocks n_lidars:15 n_obstacles_obs:$n_obstacles_obs waypoints:False -n 100_000_000 -tb tb #--hyperparams frame_stack:10

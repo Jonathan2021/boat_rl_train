@@ -4,19 +4,19 @@ import gym.spaces
 import time
 import shipNavEnv
 import math
-#from stable_baselines3.common.utils import set_random_seed
-#set_random_seed(1)
+from stable_baselines3.common.utils import set_random_seed
+set_random_seed(6)
 
 #%% reset env
 #try:
 #    myEnv.reset()
 #except NameError:
-#myEnv = gym.make('shipNavEnv:ShipNav-v0',n_rocks=50, n_obstacles_obs=0, ship_view=True)
-#myEnv = gym.make('shipNavEnv:ShipNav-v1',n_rocks=150, n_lidars=15, waypoints=True)
+#myEnv = gym.make('shipNavEnv:ShipNav-v0',n_rocks=80, n_obstacles_obs=10, ship_view=False, waypoints=False)
+#myEnv = gym.make('shipNavEnv:ShipNav-v1',n_rocks=80, n_lidars=15, waypoints=False, display_traj=True)
 #myEnv = gym.make('shipNavEnv:ShipNav-v2',n_ships=60, n_obstacles_obs=3, get_obstacles=True)#,control_throttle=True)
 #myEnv = gym.make('shipNavEnv:ShipNav-v5',n_ships=35)#,control_throttle=True)
 #myEnv = gym.make('shipNavEnv:ShipNav-v6',n_ships=50, n_obstacles_obs=20)#,control_throttle=True)
-myEnv = gym.make('shipNavEnv:ShipNav-v7',n_ships=50, n_rocks=30, n_obstacles_obs=0, waypoints=False, ship_view=False, display_traj=True, display_traj_T=1)#, ship_scale=1, rock_scale=1)#,control_throttle=True)
+myEnv = gym.make('shipNavEnv:ShipNav-v7',n_ships=20, n_rocks=15, n_obstacles_obs=0, waypoints=False, ship_view=True)#, display_traj=True) #, ship_scale=1, rock_scale=1)#,control_throttle=True)
     
 #%% other
 PRINT_DEBUG_MSG = True
@@ -103,11 +103,17 @@ def rollout(myEnv):
         while human_sets_pause:
             time.sleep(0.01)
             myEnv.render()
+    if total_timesteps == 1:
+        myEnv.render()
+        time.sleep(10)
     print("********** timesteps %i reward %0.2f ***********" % (total_timesteps, total_reward))
-#    print("Hit rew %d" % myEnv.reward_hit)
-#    print("time_rew %f" % myEnv.time_rew)
-#    print("dist_rew %f" % myEnv.dist_rew)
-#    print("rew max time %d" % myEnv.reward_max_time)
+    print("Hit rew %d" % myEnv.reward_hit)
+    print("Success rew %d" % myEnv.success_rew)
+    print("time_rew %f" % myEnv.time_rew)
+    print("dist_rew %f" % myEnv.dist_rew)
+    print("rew max time %d" % myEnv.reward_max_time)
+    print("rew angle %f" % myEnv.angle_rew)
+    print("rew bumper %f" % myEnv.bumper_rew)
 
 print("ACTIONS={}".format(ACTIONS))
 print("Press keys 1 2 3 ... to take actions 1 2 3 ...")
@@ -117,4 +123,5 @@ while 1:
     window_still_open = rollout(myEnv)
     if window_still_open==False: 
         print('break')
+        myEnv.close()
         break

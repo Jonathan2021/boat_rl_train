@@ -15,4 +15,4 @@ n_obstacles_obs=0
 
 echo "python train.py --algo $algo --env ShipNav-v$env_id --env-kwargs n_rocks:$n_rocks n_ships:$n_ships n_lidars:15 n_obstacles_obs:$n_obstacles_obs --waypoints:False -optimize --n-trials 40 -n 400_000 --n-jobs $n_jobs --n-evaluation 40 # --hyperparams frame_stack:10"
 
-cd ..; python train.py --algo $algo --env ShipNav-v$env_id --env-kwargs n_rocks:$n_rocks n_ships:$n_ships n_lidars:15 n_obstacles_obs:$n_obstacles_obs waypoints:False -optimize --n-trials 40 -n 400_000 --n-jobs $n_jobs --n-evaluation 40 # --hyperparams frame_stack:10
+cd ..; python train.py --algo $algo --env ShipNav-v$env_id --env-kwargs n_rocks:$n_rocks n_ships:$n_ships n_lidars:15 n_obstacles_obs:$n_obstacles_obs waypoints:False -optimize --n-trials 20 -n 4_000_000 --n-jobs $n_jobs --n-evaluation 40 # --hyperparams frame_stack:10
