@@ -12,11 +12,11 @@ set_random_seed(6)
 #    myEnv.reset()
 #except NameError:
 #myEnv = gym.make('shipNavEnv:ShipNav-v0',n_rocks=80, n_obstacles_obs=10, ship_view=False, waypoints=False)
-#myEnv = gym.make('shipNavEnv:ShipNav-v1',n_rocks=80, n_lidars=15, waypoints=False, display_traj=True)
+myEnv = gym.make('shipNavEnv:ShipNav-v1',n_rocks=80, n_lidars=15, waypoints=True)
 #myEnv = gym.make('shipNavEnv:ShipNav-v2',n_ships=60, n_obstacles_obs=3, get_obstacles=True)#,control_throttle=True)
 #myEnv = gym.make('shipNavEnv:ShipNav-v5',n_ships=35)#,control_throttle=True)
 #myEnv = gym.make('shipNavEnv:ShipNav-v6',n_ships=50, n_obstacles_obs=20)#,control_throttle=True)
-myEnv = gym.make('shipNavEnv:ShipNav-v7',n_ships=20, n_rocks=15, n_obstacles_obs=0, waypoints=False, ship_view=True)#, display_traj=True) #, ship_scale=1, rock_scale=1)#,control_throttle=True)
+#myEnv = gym.make('shipNavEnv:ShipNav-v7',n_ships=20, n_rocks=15, n_obstacles_obs=0, waypoints=False, ship_view=True)#, display_traj=True) #, ship_scale=1, rock_scale=1)#,control_throttle=True)
     
 #%% other
 PRINT_DEBUG_MSG = True
@@ -92,7 +92,7 @@ def rollout(myEnv):
         obser, r, done, info = myEnv.step(a)
         #print("reward %0.3f distance %0.3f bearing %0.3f" % (r, obser[4]*1600, obser[5]*180))
         #print(obser)
-        print(info['ship_0'])
+        #print(info['ship_0'])
         total_reward += r
         window_still_open = myEnv.render()
         if window_still_open==False: 
